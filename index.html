@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EarthSound | The Earth Jukebox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#controls">Skip to controls</a>
+
+<header>
+  <div>
+    <h1>EarthSound</h1>
+    <p class="tag">Listen to our changing planet. NASA Earth imagery, turned into music.</p>
+  </div>
+  <div class="hdr">
+    <button id="contrastBtn" aria-pressed="false">High contrast</button>
+    <button id="helpBtn">Keyboard help</button>
+  </div>
+</header>
+
+<main>
+  <section class="panel stagewrap" aria-label="Earth image scanner">
+    <div class="stage">
+      <canvas id="stage" role="img" aria-label="Selected NASA Earth image with a moving scan line"></canvas>
+      <div id="empty" class="empty">
+        <p><strong>No image yet</strong></p>
+        <p>Pick an image below or upload one to begin.</p>
+      </div>
+    </div>
+    <canvas id="viz" width="600" height="70" aria-hidden="true"></canvas>
+    <p id="imgDesc" class="mute"></p>
+    <p id="readout" class="readout" aria-live="off">Ready.</p>
+  </section>
+
+  <section id="controls" class="panel dock" aria-label="Controls">
+    <label>Image
+      <select id="pick"></select>
+    </label>
+    <label>Or upload your own
+      <input type="file" id="upload" accept="image/*">
+    </label>
+
+    <div class="row">
+      <button id="play" class="primary" aria-pressed="false">&#9654; Play</button>
+      <button id="stop">&#9632; Stop</button>
+      <button id="say">&#128483; Describe</button>
+    </div>
+
+    <label>Speed <output id="speedOut">1.0x</output>
+      <input type="range" id="speed" min="0.5" max="3" step="0.5" value="1">
+    </label>
+    <label>Volume
+      <input type="range" id="vol" min="0" max="1" step="0.05" value="0.7">
+    </label>
+    <label>Musical scale
+      <select id="scale">
+        <option value="pentatonic">Pentatonic (calm)</option>
+        <option value="major">Major (bright)</option>
+        <option value="minor">Minor (deep)</option>
+      </select>
+    </label>
+
+    <h2>What you hear</h2>
+    <ul class="legend">
+      <li><i style="background:#3b82f6"></i> Ocean: deep drone</li>
+      <li><i style="background:#22c55e"></i> Vegetation: notes (higher in image = higher pitch)</li>
+      <li><i style="background:#e5e7eb"></i> Cloud / ice: airy wind</li>
+      <li><i style="background:#b8864b"></i> Land: soft low notes</li>
+      <li><i style="background:#ff7a45"></i> Fire / hot spots: crackle</li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <p>Imagery: NASA Earth Information Center. Sounds are synthesized in your browser (Web Audio API). Fonts: Sora and JetBrains Mono (SIL Open Font License).</p>
+</footer>
+
+<dialog id="help">
+  <h2>Keyboard shortcuts</h2>
+  <ul>
+    <li><kbd>Space</kbd> Play / Pause</li>
+    <li><kbd>&larr;</kbd> <kbd>&rarr;</kbd> Move scan line (when paused)</li>
+    <li><kbd>D</kbd> Hear a spoken description</li>
+    <li><kbd>?</kbd> Open this help</li>
+  </ul>
+  <button id="closeHelp" class="primary">Close</button>
+</dialog>
+
+<script src="app.js"></script>
+</body>
+</html>
